@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+/* Design tokens: use as bg-background, text-muted, border-border, text-accent, etc. */
+@theme inline {
+  --color-background: #070b14;
+  --color-surface: #0e1522;
+  --color-surface-hover: #131c2d;
+  --color-border: #1e293b;
+  --color-foreground: #e2e8f0;
+  --color-muted: #94a3b8;
+  --color-accent: #3b82f6;
+  --color-accent-hover: #60a5fa;
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 35%, transparent);
+}
