@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Archivo_Black, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Headlines, name, and section titles.
+const archivoBlack = Archivo_Black({
+  variable: "--font-archivo-black",
+  weight: "400",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Body copy (400/600/700).
+const inter = Inter({
+  variable: "--font-inter",
+  weight: ["400", "600", "700"],
   subsets: ["latin"],
 });
 
@@ -22,11 +26,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
+    // data-scroll-behavior="smooth" lets Next.js pause smooth scrolling during page
+    // changes, so every new page opens at the very top.
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      className={`${archivoBlack.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
+        {/* Fixed page background (theme gradient). */}
+        <div aria-hidden className="bg-page pointer-events-none fixed inset-0 -z-10" />
+        {/* Brutalist frame: a thick black border around the whole viewport. */}
+        <div
+          aria-hidden
+          className="pointer-events-none fixed inset-0 z-[60] border-4 border-ink"
+        />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

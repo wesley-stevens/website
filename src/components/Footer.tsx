@@ -1,22 +1,26 @@
 import { site } from "@/lib/site";
 import Container from "./Container";
 
+const linkClass = "font-bold uppercase tracking-wider underline-offset-4 hover:underline";
+
 export default function Footer() {
   return (
-    <footer className="mt-24 border-t border-border">
-      <Container className="flex flex-col items-center justify-between gap-3 py-8 font-mono text-xs text-muted sm:flex-row">
-        <p>
+    <footer className="brutal-bar mt-24 border-t-[3px] border-line">
+      {/* Three equal columns so the copyright sits in the true center of the page. */}
+      <Container
+        className={`grid items-center justify-items-center gap-3 py-6 text-sm
+          sm:grid-cols-3`}
+      >
+        <p className="text-muted sm:justify-self-start">{site.location}</p>
+        <p className="text-muted">
           © {new Date().getFullYear()} {site.name}
         </p>
-        <div className="flex gap-5">
-          <a href={site.github} target="_blank" rel="noopener noreferrer" className="hover:text-accent">
+        <div className="flex gap-6 sm:justify-self-end">
+          <a href={site.github} target="_blank" rel="noopener noreferrer" className={linkClass}>
             GitHub
           </a>
-          <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-accent">
+          <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className={linkClass}>
             LinkedIn
-          </a>
-          <a href={`mailto:${site.email}`} className="hover:text-accent">
-            Email
           </a>
         </div>
       </Container>

@@ -1,30 +1,167 @@
 @import "tailwindcss";
 
-/* Design tokens: use as bg-background, text-muted, border-border, text-accent, etc. */
+/* ==========================================================================
+   THEME: "Neubrutalism Glass"
+   Liquid-glass panels + thick white borders + hard black offset shadows, on a
+   near-black background whose glow blobs are the only source of color.
+   Every color, font, border, shadow, and radius is defined in this file;
+   components only use these names (brutal-panel, brutal-chip, press, ...).
+   ========================================================================== */
+
 @theme inline {
-  --color-background: #070b14;
-  --color-surface: #0e1522;
-  --color-surface-hover: #131c2d;
-  --color-border: #1e293b;
-  --color-foreground: #e2e8f0;
-  --color-muted: #94a3b8;
-  --color-accent: #3b82f6;
-  --color-accent-hover: #60a5fa;
+  /* Colors: white / black / glass only */
+  --color-background: #050308; /* solid fallback behind the gradient */
+  --color-foreground: #ffffff; /* headings and body text */
+  --color-muted: rgb(255 255 255 / 0.78); /* secondary text (off-white) */
+  --color-ink: #000000; /* text on white buttons, active nav pill, shadows */
+  --color-surface: rgb(255 255 255 / 0.06); /* glass fill */
+  --color-surface-hover: rgb(255 255 255 / 0.12);
+  --color-line: #ffffff; /* panel borders */
+  --color-divider: rgb(255 255 255 / 0.25); /* thin rules inside panels */
+  --color-logo-tile: #ffffff; /* white tile behind dark logos (Experience) */
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --radius-brutal: 4px; /* sharp corners: 0-4px max */
+  --blur-glass: 18px;
+
+  --font-sans: var(--font-inter); /* body copy */
+  --font-display: var(--font-archivo-black); /* headlines, name, section titles */
 }
 
-html {
-  color-scheme: dark;
-  scroll-behavior: smooth;
+:root {
+  --border-panel: 3px solid var(--color-line);
+  --border-chip: 2px solid var(--color-line);
+  --shadow-panel: 8px 8px 0 var(--color-ink); /* hard, never blurred */
+  --shadow-panel-pressed: 4px 4px 0 var(--color-ink);
+  --shadow-chip: 4px 4px 0 rgb(0 0 0 / 0.85);
+  --shadow-chip-pressed: 2px 2px 0 rgb(0 0 0 / 0.85);
+
+  /* Page background: glow blobs over a near-black gradient. */
+  --gradient-page:
+    radial-gradient(circle at 15% 15%, rgb(75 45 150 / 0.55) 0%, transparent 42%),
+    radial-gradient(circle at 88% 25%, rgb(30 110 120 / 0.35) 0%, transparent 38%),
+    radial-gradient(circle at 60% 95%, rgb(120 40 90 / 0.35) 0%, transparent 45%),
+    linear-gradient(160deg, #050308 0%, #0d0620 55%, #150c2e 100%);
 }
 
-body {
-  background: var(--color-background);
-  color: var(--color-foreground);
+/* --- Core panel: nav, cards, entries, resume container, footer ----------- */
+@utility brutal-panel {
+  background-color: var(--color-surface);
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  backdrop-filter: blur(var(--blur-glass));
+  border: var(--border-panel);
+  border-radius: var(--radius-brutal);
+  box-shadow: var(--shadow-panel);
 }
 
-::selection {
-  background: color-mix(in srgb, var(--color-accent) 35%, transparent);
+/* Full-width bars (nav, footer): same glass, border on one edge only. */
+@utility brutal-bar {
+  background-color: var(--color-surface);
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  backdrop-filter: blur(var(--blur-glass));
+}
+
+/* Small inline elements: tags, chips. */
+@utility brutal-chip {
+  background-color: var(--color-surface);
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  backdrop-filter: blur(var(--blur-glass));
+  border: var(--border-chip);
+  border-radius: var(--radius-brutal);
+  box-shadow: var(--shadow-chip);
+}
+
+/* Solid white panel (primary buttons). */
+@utility brutal-solid {
+  background-color: var(--color-foreground);
+  color: var(--color-ink);
+  border: var(--border-panel);
+  border-radius: var(--radius-brutal);
+  box-shadow: var(--shadow-panel);
+}
+
+/* Neubrutalist hover/focus: the element "presses" toward its shadow. Pair
+   `press` with brutal-panel/brutal-solid, `press-sm` with brutal-chip. */
+@utility press {
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    background-color 150ms ease;
+  &:hover,
+  &:focus-visible {
+    transform: translate(4px, 4px);
+    box-shadow: var(--shadow-panel-pressed);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &:hover,
+    &:focus-visible {
+      transform: none;
+    }
+  }
+}
+
+@utility press-sm {
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    background-color 150ms ease;
+  &:hover,
+  &:focus-visible {
+    transform: translate(2px, 2px);
+    box-shadow: var(--shadow-chip-pressed);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &:hover,
+    &:focus-visible {
+      transform: none;
+    }
+  }
+}
+
+/* Hard (unblurred) text shadow for big type over photos. */
+@utility text-shadow-hard {
+  text-shadow: 6px 6px 0 var(--color-ink);
+}
+
+@utility bg-page {
+  background-image: var(--gradient-page);
+}
+
+/* --- Base (in a layer so utility classes can still override it) ------------ */
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    /* Keeps content scrolled into view from hiding under the sticky navbar. */
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  /* Headlines use Archivo Black, which ships one weight; never fake-bold it. */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+  }
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-synthesis: none;
+  }
+
+  /* Visible keyboard focus everywhere. */
+  :focus-visible {
+    outline: 3px solid var(--color-foreground);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-foreground);
+    color: var(--color-ink);
+  }
 }

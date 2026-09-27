@@ -1,6 +1,9 @@
 export default function Tag({ children }: { children: string }) {
   return (
-    <span className="rounded-md border border-border bg-surface px-2.5 py-1 font-mono text-xs text-muted">
+    <span
+      className={`brutal-chip inline-block px-2.5 py-1 text-xs font-bold uppercase tracking-wider
+        text-foreground`}
+    >
       {children}
     </span>
   );

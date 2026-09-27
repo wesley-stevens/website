@@ -8,7 +8,8 @@ export default function Container({
   className?: string;
 }) {
   return (
-    <div className={`mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 ${className}`}>
+    // Site-wide content width: up to 1600px, so columns use most of the screen.
+    <div className={`mx-auto w-full max-w-[100rem] px-4 sm:px-8 lg:px-12 ${className}`}>
       {children}
     </div>
   );
