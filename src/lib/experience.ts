@@ -78,12 +78,12 @@ export const work: Experience[] = [
     dates: "September 2026 – Present",
     bullets: [
       // `Describe what you do in this role.`,
-      `Managed day-to-day operations for the UW softball team as a student manager.`,
-      `Set up and tore down equipment for every practice and game, keeping things on schedule.`,
-      `Tracked game stats for the coaching staff to use during and after games via the softwares
+      `Manage day-to-day operations for the UW softball team as a student manager.`,
+      `Set up and tear down equipment for every practice and game, keeping things on schedule.`,
+      `Track game stats for the coaching staff to use during and after games via the softwares
         Trackman, HitTrax, Dartfish, and game-film camera setup.`,
-      `Coordinated with coaches and players on travel plans, practice times, and equipment needs.`,
-      `Represented the program professionally at practices, games, and team events.`,
+      `Coordinate with coaches and players on travel plans, practice times, and equipment needs.`,
+      `Represent the program professionally at practices, games, and team events.`,
     ],
   },
   {
