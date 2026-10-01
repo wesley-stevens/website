@@ -1,5 +1,5 @@
 export type Experience = {
-  title: string; // role or organization, e.g. "Undergraduate Lab Research Assistant"
+  title: string; // role or organization, e.g. "Undergraduate Researcher"
   subtitle?: string; // e.g. the lab, team, or project
   location: string;
   dates: string; // e.g. "January 2026 – Present"
@@ -26,8 +26,8 @@ export const FEATURED_EXPERIENCE_ID = "ipl-research";
 // ==========================================================================
 export const clubsAndResearch: Experience[] = [
   {
-    title: "Undergraduate Lab Research Assistant",
-    subtitle: "UW Information Processing Lab under Professor Jenq-Neng Hwang",
+    title: "Undergraduate Researcher",
+    subtitle: "UW Information Processing Lab",
     id: "ipl-research",
     summary: `Helping graduate students in UW's Information Processing Lab with AI-based
       multi-object tracking, from following marine animals in underwater video to the
@@ -38,7 +38,7 @@ export const clubsAndResearch: Experience[] = [
     location: "Seattle, WA",
     dates: "January 2026 – Present",
     bullets: [
-      `January – April: Primarily assisting in the AI and Machine Learning-based Multi Object
+      `January – Present: Primarily assisting in the AI and Machine Learning-based Multi Object
         Tracking for Underwater Vision Project, using GitHub repos Grounding DINO and SAM2 to
         track marine animals across a collection of videos.`,
       `April – Present: Assisting graduate students with the Video LINCS program hosted by the

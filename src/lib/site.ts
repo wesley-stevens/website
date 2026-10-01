@@ -29,7 +29,7 @@ export const about = {
     and Sensing & Communication, and I plan to take classes in all of those fields during my remaining 
     time here at UW to expand my breadth of knowledge as much as possible. 
 
-    I'm currently an undergraduate research assistant in UW's Information Processing Lab, where I help
+    I'm currently an undergraduate researcher in UW's Information Processing Lab, where I help
     graduate students with AI-based multi-object tracking, as well as a student manager for the UW Softball
     team. Check out my FPGA Frogger game on the Projects page, or see what professional and technical 
     experience I've been building in the Experience tab. If you have any questions, I'd love to connect.`,
