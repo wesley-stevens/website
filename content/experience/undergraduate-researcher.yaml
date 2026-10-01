@@ -1,0 +1,32 @@
+title: Undergraduate Researcher
+section: clubs
+order: 1
+subtitle: UW Information Processing Lab
+location: Seattle, WA
+dates: January 2026 – Present
+logo: ipl-logo
+logoOnWhite: true
+bullets:
+  - >-
+    January – Present: Primarily assisting in the AI and Machine Learning-based
+    Multi Object Tracking for Underwater Vision Project, using GitHub repos
+    Grounding DINO and SAM2 to track marine animals across a collection of
+    videos.
+  - >-
+    April – Present: Assisting graduate students with the Video LINCS program
+    hosted by the Office of the Director of National Intelligence, a human
+    detection, tracking & re-identification challenge across diverse video
+    sensor collections.
+  - >-
+    Work consisting of running videos through the repos (in Python), visually
+    analyzing them, and providing insight to graduate students on how to make
+    our tracking models more efficient.
+id: ipl-research
+summary: >-
+  Helping graduate students in UW's Information Processing Lab with AI-based
+  multi-object tracking, from following marine animals in underwater video to
+  the ODNI Video LINCS human re-identification challenge.
+tags:
+  - Python
+  - SAM2
+  - Grounding DINO

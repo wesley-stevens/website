@@ -1,0 +1,40 @@
+status: Open to Summer 2027 internships
+heading: Engineering with purpose.
+body: >-
+  Welcome to my personal portfolio! This website serves as a platform to
+  showcase all my personal and class projects, my experience, and more.
+
+
+  I’m an academic 3rd year Electrical & Computer Engineering student at the
+  University of Washington - Seattle. I’m particularly drawn to Embedded
+  Systems, Control Systems, Power Systems, and Sensing & Communication, and I
+  plan to take classes in all of those fields during my remaining time here at
+  UW to expand my breadth of knowledge as much as possible.
+
+
+  I'm currently an undergraduate researcher in UW's Information Processing Lab,
+  where I help graduate students with AI-based multi-object tracking, as well as
+  a student manager for the UW Softball team. Check out my FPGA Frogger game on
+  the Projects page, or see what professional and technical experience I've been
+  building in the Experience tab. If you have any questions, I'd love to
+  connect.
+skills:
+  - Java
+  - Verilog
+  - Python
+  - MATLAB
+  - Linux
+photo: /about/me.jpg
+buttons:
+  - label: View My Projects
+    href: /projects
+  - label: View My Experience
+    href: /experience
+featuredHeading: Featured
+featured:
+  - discriminant: project
+    value: personal-project
+  - discriminant: project
+    value: frogger-game
+  - discriminant: experience
+    value: undergraduate-researcher

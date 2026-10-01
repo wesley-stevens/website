@@ -1,0 +1,81 @@
+title: 'Frogger on FPGA: A Verilog Game Engine (DE1-SoC)'
+order: 2
+category: class
+summary: >-
+  A Verilog implementation of Frogger, rendered and played live on an LED matrix
+  dev board.
+tags:
+  - Verilog
+  - ModelSim
+year: '2026'
+course: E E 271
+details:
+  - discriminant: heading
+    value: Overview
+  - discriminant: text
+    value: >-
+      A recreation of the classic arcade game Frogger (similar to Crossy Road),
+      written in SystemVerilog and run on a DE1-SoC FPGA board with a 16×16
+      bi-color LED matrix: the player guides a green frog across lanes of moving
+      red cars using the board's four push buttons. The design was built and
+      compiled in Intel Quartus Prime and verified with ModelSim testbenches
+      before running on hardware. Instead of running as software on a processor,
+      all of the game logic (movement, car traffic, collision detection, and
+      win/loss states) is implemented directly as digital hardware that updates
+      in real time.
+  - discriminant: heading
+    value: How It Works
+  - discriminant: image
+    value:
+      src: /project-media/frogger-game/block-diagram.jpg
+      caption: >-
+        The four KEY buttons feed User Input modules that turn each press into a
+        single move, while a Cars module shifts the red cars along on a ~3 Hz
+        tick. The top-level Frogger state machine (play, win, lose) combines
+        both into red and green pixel data for the LED matrix and a WIN/LOSE
+        message on the HEX displays.
+  - discriminant: heading
+    value: Implementation
+  - discriminant: gallery
+    value:
+      - type: image
+        src: /project-media/frogger-game/quartus.png
+        label: Quartus Prime
+        caption: >-
+          The SystemVerilog project in Intel Quartus Prime, fully compiled for
+          the DE1-SoC with 0 errors and 0 warnings.
+      - type: image
+        src: /project-media/frogger-game/modelsim.png
+        label: ModelSim
+        caption: >-
+          A ModelSim testbench waveform showing button presses (KEY) driving the
+          frog's movement and the red/green pixel and HEX display outputs.
+  - discriminant: heading
+    value: Demo
+  - discriminant: gallery
+    value:
+      - type: video
+        src: /project-media/frogger-game/board-win.mp4
+        label: Win condition
+        caption: >-
+          The frog reaches the far side: the board fills green and the HEX
+          displays show WIN.
+      - type: video
+        src: /project-media/frogger-game/board-lose.mp4
+        label: Loss condition
+        caption: >-
+          A car hits the frog: the board fills red and the HEX displays show
+          LOSE.
+  - discriminant: heading
+    value: Future Improvements
+  - discriminant: list
+    value:
+      - >-
+        One improvement that could be made would be to add levels of difficulty,
+        where the speed of the cars increases depending on the position of the
+        switches on the DE1-SoC board. A further improvement of this
+        implementation would be to make the cars in different lanes move at
+        different speeds, which would make the game more challenging and less
+        predictable. I unfortunately no longer have access to this board so I
+        can't improve upon it, but if I had the time to improve upon this
+        project, that is where I would start.

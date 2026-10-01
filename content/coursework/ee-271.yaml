@@ -1,0 +1,10 @@
+code: E E 271
+order: 9
+title: Digital Circuits & Systems
+term: Spring 2026
+description: >-
+  Overview of digital computer systems. Logic design, boolean algebra,
+  combinational & sequential circuits, finite state machines, and the design and
+  operation of digital computers, including ALU, memory, and I/O. Programming in
+  Verilog.
+finalProject: frogger-game

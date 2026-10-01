@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { navItems, site } from "@/lib/site";
+import { navItems } from "@/lib/nav";
 import Button from "./Button";
 import Container from "./Container";
 
-export default function Navbar() {
+// `name` comes from the layout (site settings are read on the server).
+export default function Navbar({ name }: { name: string }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -25,7 +26,7 @@ export default function Navbar() {
           className="font-display text-lg tracking-tight"
           onClick={() => setOpen(false)}
         >
-          {site.name}
+          {name}
         </Link>
 
         {/* Desktop nav */}

@@ -1,0 +1,9 @@
+code: E E 233
+order: 10
+title: Circuit Theory
+term: Autumn 2026
+description: >-
+  Analysis of circuits with sinusoidal signals. Phasors, system functions,
+  complex frequency, and frequency response. Power, energy, and two-port network
+  theory.
+finalProject: ee-233-final-project

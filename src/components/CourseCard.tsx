@@ -1,10 +1,10 @@
 import Link from "next/link";
 import type { Course } from "@/lib/coursework";
-import { projectHref, projects } from "@/lib/projects";
+import { getProjects, projectHref } from "@/lib/projects";
 import { TileHeader, tileClass, tileTitleClass } from "./TileGrid";
 
-export default function CourseCard({ course }: { course: Course }) {
-  const project = projects.find((p) => p.slug === course.finalProject);
+export default async function CourseCard({ course }: { course: Course }) {
+  const project = (await getProjects()).find((p) => p.slug === course.finalProject);
 
   return (
     <article className={tileClass}>

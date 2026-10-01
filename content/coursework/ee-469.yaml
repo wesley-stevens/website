@@ -1,0 +1,9 @@
+code: E E 469
+order: 12
+title: Computer Architecture I
+term: Autumn 2026
+description: >-
+  Assembly and machine language, microprocessor organization including control
+  and datapath. Computer arithmetic. Memory systems and caching. Performance
+  modeling of microprocessors.
+finalProject: ee-469-final-project

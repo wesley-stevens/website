@@ -1,9 +1,10 @@
-import { site } from "@/lib/site";
+import { getSite } from "@/lib/site";
 import Container from "./Container";
 
 const linkClass = "font-bold uppercase tracking-wider underline-offset-4 hover:underline";
 
-export default function Footer() {
+export default async function Footer() {
+  const site = await getSite();
   return (
     <footer className="brutal-bar mt-24 border-t-[3px] border-line">
       {/* Three equal columns so the copyright sits in the true center of the page. */}
