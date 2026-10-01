@@ -42,6 +42,8 @@ export type Project = {
   tags: string[]; // key software/hardware, shown in the card's top-right corner
   year: string;
   course?: string; // e.g. "E E 233" for class projects
+  finalProject: boolean; // linked from the Coursework card whose code matches `course`
+  featured?: number; // position in the homepage Featured row
   details?: ProjectBlock[];
 };
 
@@ -66,6 +68,8 @@ export const getProjects = cache(async (): Promise<Project[]> => {
       tags: [...entry.tags],
       year: entry.year,
       course: optional(entry.course),
+      finalProject: entry.finalProject,
+      featured: entry.featured ?? undefined,
       details: entry.details.map((block): ProjectBlock => {
         switch (block.discriminant) {
           case "heading":

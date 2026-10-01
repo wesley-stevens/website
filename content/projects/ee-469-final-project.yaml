@@ -8,3 +8,4 @@ course: E E 469
 details:
   - discriminant: text
     value: Final project coming soon.
+finalProject: true

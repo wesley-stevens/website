@@ -17,14 +17,16 @@ export default async function Home() {
     getProjects(),
     getExperienceSections(),
   ]);
-  const experience = sections.flatMap((s) => s.entries);
-
-  // Homepage Featured row: the projects and roles picked at /keystatic → Homepage.
-  const featured = about.featured.map((item) =>
-    item.discriminant === "project"
-      ? { kind: "project" as const, project: projects.find((p) => p.slug === item.value) }
-      : { kind: "experience" as const, role: experience.find((e) => e.slug === item.value) },
-  );
+  // Homepage Featured row: every project and role with a "Featured on homepage"
+  // position, in that order.
+  const featured = [
+    ...projects.map((project) => ({ kind: "project" as const, project, at: project.featured })),
+    ...sections
+      .flatMap((s) => s.entries)
+      .map((role) => ({ kind: "experience" as const, role, at: role.featured })),
+  ]
+    .filter((f) => f.at != null)
+    .sort((a, b) => a.at! - b.at!);
 
   return (
     <>
@@ -96,8 +98,8 @@ export default async function Home() {
         <TileGrid>
           {featured.map((f) =>
             f.kind === "project"
-              ? f.project && <ProjectTile key={f.project.slug} project={f.project} />
-              : f.role && (
+              ? <ProjectTile key={f.project.slug} project={f.project} />
+              : (
                   <FeatureTile
                     key={f.role.slug}
                     href={f.role.id ? `/experience#${f.role.id}` : "/experience"}

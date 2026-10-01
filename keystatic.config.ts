@@ -10,6 +10,14 @@ const order = fields.integer({
   validation: { isRequired: true },
 });
 
+// Puts an entry in the homepage Featured row. Lives on each entry (instead of a list
+// on the Homepage) so renaming an entry's slug never breaks the Featured row.
+const featured = fields.integer({
+  label: "Featured on homepage",
+  description:
+    "Position in the homepage Featured row (1 = first). Leave empty to not feature it.",
+});
+
 // A photo or video on a project page.
 const mediaSrc = fields.text({
   label: "File",
@@ -112,33 +120,12 @@ export default config({
             validation: { length: { max: 2 } },
           },
         ),
-        featuredHeading: fields.text({ label: "Featured heading" }),
-        featured: fields.blocks(
-          {
-            project: {
-              label: "Project",
-              itemLabel: (props) => `Project: ${props.value ?? ""}`,
-              schema: fields.relationship({
-                label: "Project",
-                collection: "projects",
-                validation: { isRequired: true },
-              }),
-            },
-            experience: {
-              label: "Experience",
-              itemLabel: (props) => `Experience: ${props.value ?? ""}`,
-              schema: fields.relationship({
-                label: "Experience",
-                description:
-                  "Uses the entry's Featured summary and Featured tags. Give it a Link ID " +
-                  "so the card jumps straight to it on the Experience page.",
-                collection: "experience",
-                validation: { isRequired: true },
-              }),
-            },
-          },
-          { label: "Featured", description: "Cards in the Featured row, in order." },
-        ),
+        featuredHeading: fields.text({
+          label: "Featured heading",
+          description:
+            "To choose what's featured, set \"Featured on homepage\" on a project or " +
+            "experience entry.",
+        }),
       },
     }),
 
@@ -240,8 +227,14 @@ export default config({
         year: fields.text({ label: "Year" }),
         course: fields.text({
           label: "Course",
-          description: 'e.g. "E E 233" for class projects.',
+          description: 'e.g. "E E 233" for class projects. Must match the course\'s Code.',
         }),
+        finalProject: fields.checkbox({
+          label: "Course final project",
+          description:
+            'Adds a "Final project" link to this on the Coursework card whose Code matches Course.',
+        }),
+        featured,
         // Content blocks for the project's detail page, shown top to bottom.
         details: fields.blocks(
           {
@@ -320,11 +313,12 @@ export default config({
         }),
         title: fields.text({ label: "Title" }),
         term: fields.text({ label: "Term", description: 'e.g. "Autumn 2025"' }),
-        description: fields.text({ label: "Description", multiline: true }),
-        finalProject: fields.relationship({
-          label: "Final project",
-          description: 'Optional class project; adds a "Final project" link to the card.',
-          collection: "projects",
+        description: fields.text({
+          label: "Description",
+          description:
+            'To link a final project, tick "Course final project" on that project and set ' +
+            "its Course to this Code.",
+          multiline: true,
         }),
       },
     }),
@@ -376,6 +370,7 @@ export default config({
           description:
             'Optional: e.g. "ipl-research" makes /experience#ipl-research scroll to this entry.',
         }),
+        featured,
         summary: fields.text({
           label: "Featured summary",
           description: "Optional: short blurb for this role's card in the homepage Featured row.",

@@ -9,6 +9,8 @@ tags:
   - ModelSim
 year: '2026'
 course: E E 271
+finalProject: true
+featured: 2
 details:
   - discriminant: heading
     value: Overview

@@ -20,6 +20,7 @@ export type Experience = {
   // Optional: short blurb + tool tags for this role's card in the homepage Featured row.
   summary?: string;
   tags?: string[];
+  featured?: number; // position in the homepage Featured row
 };
 
 // Add or edit entries at /keystatic (stored in content/experience/). Each entry's
@@ -45,6 +46,7 @@ export const getExperienceSections = cache(async () => {
         id: optional(entry.id),
         summary: optional(entry.summary),
         tags: entry.tags.length ? [...entry.tags] : undefined,
+        featured: entry.featured ?? undefined,
       }));
 
   // The two windows on the Experience page, left to right.

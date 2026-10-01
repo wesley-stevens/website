@@ -1,9 +1,14 @@
-title: Project Title
+title: Personal Portfolio Website
 order: 1
 category: personal
 summary: >-
   A short description of the project, what problem it solves, and the approach
   you took.
-tags: []
+tags:
+  - Next.js
+  - React
+  - Vercel
+  - Keystatic CMS
 year: '2026'
+finalProject: false
 details: []

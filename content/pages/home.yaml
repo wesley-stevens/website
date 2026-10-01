@@ -31,10 +31,3 @@ buttons:
   - label: View My Experience
     href: /experience
 featuredHeading: Featured
-featured:
-  - discriminant: project
-    value: personal-project
-  - discriminant: project
-    value: frogger-game
-  - discriminant: experience
-    value: undergraduate-researcher
