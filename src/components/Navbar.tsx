@@ -29,7 +29,8 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 md:flex">
+        {/* Full link bar from 1024px; smaller screens use the menu button. */}
+        <nav className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -54,7 +55,7 @@ export default function Navbar() {
           <button
             type="button"
             className={`brutal-chip press-sm inline-flex h-10 w-10 items-center justify-center
-              text-foreground md:hidden`}
+              text-foreground lg:hidden`}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="mobile-nav"
@@ -77,7 +78,7 @@ export default function Navbar() {
 
       {/* Mobile nav */}
       {open && (
-        <nav id="mobile-nav" className="border-t-[3px] border-line md:hidden">
+        <nav id="mobile-nav" className="border-t-[3px] border-line lg:hidden">
           <Container className="flex flex-col py-3">
             {navItems.map((item) => (
               <Link

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Tag from "./Tag";
-import { tileClass } from "./TileGrid";
+import { tileClass, tileTitleClass } from "./TileGrid";
 
 // Clickable card: tags (key tools) top-right, title + summary + meta line at the
 // bottom, arrow on the right. Used for project cards and the homepage Featured row.
@@ -39,7 +39,7 @@ export default function FeatureTile({
       </div>
 
       <div className="mt-auto pr-10 pt-10">
-        <h2 className="text-3xl tracking-tight">{title}</h2>
+        <h2 className={tileTitleClass}>{title}</h2>
         <p className="mt-4 leading-relaxed text-muted">{summary}</p>
         {meta && (
           <p className="mt-6 text-sm font-bold uppercase tracking-wider text-muted">{meta}</p>

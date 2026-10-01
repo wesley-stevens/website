@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { mediaSize } from "@/lib/media";
 import type { MediaItem, ProjectBlock } from "@/lib/projects";
 
 // Turns a YouTube watch/share link into an embeddable URL, or returns undefined.
@@ -11,18 +12,24 @@ function youtubeEmbed(src: string) {
 // One shared column width for every block, so headings, text, and media all line up.
 const column = "mx-auto w-full max-w-6xl";
 
-// One photo or video, with an optional label above and caption below. The figure
-// shrinks to the media's width and is centered; the label and caption take that
-// same width ([contain:inline-size] stops them widening it), so they line up with
-// the media's edges instead of the column's.
+// One photo or video, with an optional label above and caption below.
+// Sizes come from the actual files (read at build time), so every browser lays the
+// media out the same way without having to measure it first:
+// - photos fill the column width;
+// - local videos keep their real shape and are as wide as possible while staying
+//   within 80% of the screen height (portrait phone clips stay portrait).
+// The label and caption share the figure's width, so they line up with the media.
 function Media({ item }: { item: MediaItem }) {
   const embed = item.type === "video" ? youtubeEmbed(item.src) : undefined;
+  const size = embed ? undefined : mediaSize(item.src);
+  const w = size?.width ?? (item.type === "video" ? 9 : 16);
+  const h = size?.height ?? (item.type === "video" ? 16 : 10);
+  const figureWidth =
+    item.type === "video" && !embed ? `min(100%, calc(80vh * ${w} / ${h}))` : "100%";
 
   return (
-    <figure className="mx-auto flex w-fit max-w-full flex-col">
-      {item.label && (
-        <h3 className="mb-4 text-lg tracking-tight [contain:inline-size]">{item.label}</h3>
-      )}
+    <figure className="mx-auto max-w-full" style={{ width: figureWidth }}>
+      {item.label && <h3 className="mb-4 text-lg tracking-tight">{item.label}</h3>}
 
       {item.type === "image" ? (
         // Click to open the full-size image (handy for screenshots).
@@ -35,11 +42,11 @@ function Media({ item }: { item: MediaItem }) {
           <Image
             src={item.src}
             alt={item.caption ?? item.label ?? ""}
-            width={1600}
-            height={1000}
-            sizes="(min-width: 1024px) 1024px, 100vw"
+            width={w}
+            height={h}
+            sizes="(min-width: 1280px) 1152px, 100vw"
             quality={90}
-            className="h-auto w-full"
+            className="block h-auto w-full"
           />
         </a>
       ) : embed ? (
@@ -53,22 +60,20 @@ function Media({ item }: { item: MediaItem }) {
           />
         </div>
       ) : (
-        // Keeps the video's own shape (portrait phone clips stay portrait), capped
-        // to 80% of the screen height. "#t=0.1" shows the first frame before play.
+        // "#t=0.1" shows the first frame before play (incl. iOS Safari).
         <video
           src={`${item.src}#t=0.1`}
+          width={w}
+          height={h}
           controls
           playsInline
           preload="metadata"
-          className="brutal-panel max-h-[80vh] w-auto max-w-full"
+          className="brutal-panel block h-auto w-full object-cover"
+          style={{ aspectRatio: `${w} / ${h}` }}
         />
       )}
 
-      {item.caption && (
-        <figcaption className="mt-3 text-sm text-muted [contain:inline-size]">
-          {item.caption}
-        </figcaption>
-      )}
+      {item.caption && <figcaption className="mt-3 text-sm text-muted">{item.caption}</figcaption>}
     </figure>
   );
 }
@@ -119,7 +124,7 @@ export default function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
             return (
               <div
                 key={i}
-                className={`${column} grid items-start gap-8 sm:grid-cols-2`}
+                className={`${column} grid items-start gap-8 md:grid-cols-2`}
               >
                 {block.items.map((item) => (
                   <Media key={item.src} item={item} />

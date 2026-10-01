@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
-import { TileGrid, tileClass } from "@/components/TileGrid";
+import { TileGrid, tileClass, tileTitleClass } from "@/components/TileGrid";
 import { projectCategories, projects } from "@/lib/projects";
 
 export const metadata: Metadata = { title: "Projects" };
@@ -26,7 +26,7 @@ export default function ProjectsPage() {
                 {count} project{count === 1 ? "" : "s"}
               </p>
               <div className="mt-auto pt-10">
-                <h2 className="text-3xl tracking-tight">{cat.title}</h2>
+                <h2 className={tileTitleClass}>{cat.title}</h2>
                 <p className="mt-4 leading-relaxed text-muted">
                   {cat.description}
                 </p>

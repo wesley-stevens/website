@@ -17,7 +17,8 @@ export default function ExperiencePage() {
         compact
       />
       {/* Two side-by-side windows, each half the screen (stacked on phones). */}
-      <Container className="grid items-start gap-8 pb-16 pt-6 md:grid-cols-2">
+      {/* Side by side from 1024px; stacked on phones and portrait tablets. */}
+      <Container className="grid items-start gap-8 pb-16 pt-6 lg:grid-cols-2">
         {experienceSections.map((section) => (
           <section
             key={section.title}
@@ -38,9 +39,12 @@ export default function ExperiencePage() {
                     <p className="text-sm font-bold uppercase tracking-wider text-muted">
                       {job.dates} · {job.location}
                     </p>
-                    <div className="mt-3 flex items-center gap-4">
-                      {/* Fixed 128x64 slot so titles line up; the logo scales to fit.
-                          logoOnWhite adds a white tile behind dark logos. */}
+                    <div
+                      className={`mt-3 flex flex-col items-start gap-3 sm:flex-row sm:items-center
+                        sm:gap-4`}
+                    >
+                      {/* Fixed 128x64 slot so titles line up; the logo scales to fit (above the
+                          title on phones). logoOnWhite adds a white tile behind dark logos. */}
                       {logo && (
                         <span
                           className={`h-16 w-32 shrink-0 ${
@@ -48,12 +52,19 @@ export default function ExperiencePage() {
                           }`}
                         >
                           <span className="relative block h-full w-full">
-                            <Image src={logo} alt="" fill unoptimized className="object-contain" />
+                            <Image
+                              src={logo}
+                              alt=""
+                              fill
+                              unoptimized
+                              loading="eager"
+                              className="object-contain"
+                            />
                           </span>
                         </span>
                       )}
-                      <div>
-                        <h3 className="text-2xl tracking-tight">{job.title}</h3>
+                      <div className="min-w-0">
+                        <h3 className="text-xl tracking-tight sm:text-2xl">{job.title}</h3>
                         {job.subtitle && (
                           <p className="mt-1 font-semibold text-foreground">{job.subtitle}</p>
                         )}

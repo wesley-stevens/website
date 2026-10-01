@@ -22,11 +22,11 @@ export default function Home() {
       {/* About me (text in src/lib/site.ts → `about`) */}
       <section id="about">
         <Container
-          className="grid items-start gap-10 py-16 md:grid-cols-[1.8fr_1fr] md:gap-12"
+          className="grid items-start gap-10 py-16 lg:grid-cols-[1.8fr_1fr] lg:gap-12"
         >
           <div className="brutal-panel p-8 sm:p-10">
             <Tag>{about.status}</Tag>
-            <h1 className="mt-6 text-4xl leading-tight tracking-tight sm:text-5xl">
+            <h1 className="mt-6 text-3xl leading-tight tracking-tight sm:text-5xl">
               {about.heading}
             </h1>
             <div className="mt-8 space-y-5 text-lg leading-relaxed text-muted">
@@ -53,20 +53,22 @@ export default function Home() {
           </div>
 
           {/* Photo column: top edge level with the intro card, buttons underneath. */}
-          <div className="flex flex-col gap-6">
+          <div className="mx-auto flex w-full max-w-md flex-col gap-6 lg:max-w-none">
             <div className="brutal-panel p-3">
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-brutal">
                 <Image
                   src={about.photo}
                   alt={`Photo of ${site.name}`}
                   fill
-                  sizes="(min-width: 768px) 40vw, 100vw"
+                  sizes="(min-width: 1024px) 35vw, (min-width: 448px) 448px, 100vw"
                   quality={90}
+                  priority
                   className="object-cover object-center"
                 />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            {/* Side by side when the photo column is wide enough, stacked otherwise. */}
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
               <Button href="/projects" className="w-full">
                 View My Projects
               </Button>

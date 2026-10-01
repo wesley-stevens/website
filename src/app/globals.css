@@ -138,6 +138,11 @@
   body {
     background: var(--color-background);
     color: var(--color-foreground);
+    /* Safety net: a word too long for its box wraps instead of spilling out. */
+    overflow-wrap: break-word;
+    /* Stop iOS Safari from auto-enlarging text in landscape. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   /* Headlines use Archivo Black, which ships one weight; never fake-bold it. */

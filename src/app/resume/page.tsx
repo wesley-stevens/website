@@ -44,6 +44,19 @@ export default function ResumePage() {
       >
         <iframe src={`${site.resume}#view=FitH`} title="Resume" className="h-full w-full" />
       </div>
+      {/* Phones/tablets often show only page 1 (or nothing) of an embedded PDF. */}
+      <p className="mx-auto mt-6 max-w-3xl text-center text-sm text-muted">
+        Viewer not loading on your device?{" "}
+        <a
+          href={site.resume}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-bold text-foreground underline underline-offset-4"
+        >
+          Open the PDF in a new tab
+        </a>
+        .
+      </p>
     </Container>
   );
 }

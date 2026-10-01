@@ -25,7 +25,7 @@ export default function PageHero({
         </Link>
         <div className="my-auto flex flex-col items-center py-6 text-center">
           <h1
-            className="text-shadow-hard max-w-6xl text-5xl tracking-tight break-words sm:text-7xl"
+            className="text-shadow-hard max-w-6xl text-4xl tracking-tight sm:text-6xl lg:text-7xl"
           >
             {title}
           </h1>
