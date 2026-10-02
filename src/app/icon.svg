@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108">
+  <!-- Site icon: a heavy "W" in the site's purple, with the hard black offset shadow
+       used on page headings (text-shadow-hard). -->
+  <g transform="translate(3 6)">
+    <polygon fill="#000" transform="translate(6 6)"
+      points="2,10 23,10 31,60 41,10 59,10 69,60 77,10 98,10 82,88 60,88 50,42 40,88 18,88" />
+    <polygon fill="#8b5cf6" stroke="#000" stroke-width="3" stroke-linejoin="round"
+      points="2,10 23,10 31,60 41,10 59,10 69,60 77,10 98,10 82,88 60,88 50,42 40,88 18,88" />
+  </g>
+</svg>
