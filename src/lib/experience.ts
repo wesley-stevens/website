@@ -1,6 +1,5 @@
 import { cache } from "react";
 import { optional, reader } from "./keystatic";
-import { getExperiencePage } from "./site";
 
 export type Experience = {
   slug: string; // file name in content/experience/
@@ -24,13 +23,11 @@ export type Experience = {
 };
 
 // Add or edit entries at /keystatic (stored in content/experience/). Each entry's
-// "Section" picks the window: Clubs & Research Labs (left) or Work Experience (right).
-export const getExperienceSections = cache(async () => {
-  const [entries, page] = await Promise.all([
-    reader.collections.experience.all(),
-    getExperiencePage(),
-  ]);
-  entries.sort((a, b) => (a.entry.order ?? 0) - (b.entry.order ?? 0));
+// "Section" picks its window: Clubs & Research Labs or Work Experience.
+export const getExperience = cache(async () => {
+  const entries = (await reader.collections.experience.all()).sort(
+    (a, b) => (a.entry.order ?? 0) - (b.entry.order ?? 0),
+  );
   const inSection = (section: "clubs" | "work"): Experience[] =>
     entries
       .filter(({ entry }) => entry.section === section)
@@ -49,9 +46,5 @@ export const getExperienceSections = cache(async () => {
         featured: entry.featured ?? undefined,
       }));
 
-  // The two windows on the Experience page, left to right.
-  return [
-    { title: page.clubsHeading, entries: inSection("clubs") },
-    { title: page.workHeading, entries: inSection("work") },
-  ];
+  return { clubs: inSection("clubs"), work: inSection("work") };
 });

@@ -38,10 +38,6 @@ const mediaCaption = fields.text({
   multiline: true,
 });
 
-// Banner at the top of a section page.
-const pageTitle = fields.text({ label: "Page title" });
-const pageSubtitle = fields.text({ label: "Subtitle", multiline: true });
-
 // Title + description for a Projects tab (its card on /projects and its own banner).
 const categoryText = (label: string) =>
   fields.object(
@@ -51,6 +47,340 @@ const categoryText = (label: string) =>
     },
     { label },
   );
+
+// --- Page sections ---------------------------------------------------------------
+// Every page is a list of sections, shown top to bottom (rendered by
+// src/components/PageSections.tsx). Any section can go on any page.
+
+const tabTitle = fields.text({
+  label: "Browser tab title",
+  description: 'Shown in the browser tab as "<this> · <Name>".',
+});
+
+const hidden = fields.checkbox({
+  label: "Hide this section",
+  description: "Keeps it saved, but leaves it off the page.",
+});
+
+const columns = fields.select({
+  label: "Columns",
+  description: "Cards per row on wide screens (phones always show 1).",
+  options: [
+    { label: "3", value: "3" },
+    { label: "2", value: "2" },
+    { label: "1", value: "1" },
+  ],
+  defaultValue: "3",
+});
+
+const width = fields.select({
+  label: "Width",
+  options: [
+    { label: "Wide", value: "wide" },
+    { label: "Narrow", value: "narrow" },
+  ],
+  defaultValue: "wide",
+});
+
+const buttonList = (label: string) =>
+  fields.array(
+    fields.object({
+      label: fields.text({ label: "Label" }),
+      href: fields.text({
+        label: "Link",
+        description: 'A page like "/projects", or a full URL like "https://…".',
+      }),
+      style: fields.select({
+        label: "Style",
+        options: [
+          { label: "Solid", value: "primary" },
+          { label: "Outline", value: "secondary" },
+        ],
+        defaultValue: "primary",
+      }),
+    }),
+    { label, itemLabel: (props) => props.fields.label.value },
+  );
+
+// Section-list label: "<Type>: <first text field>", plus "(hidden)" when hidden.
+const sectionLabel =
+  (type: string, key?: string) =>
+  (props: { fields: Record<string, unknown> }) => {
+    const value = (k: string) => (props.fields[k] as { value?: unknown } | undefined)?.value;
+    const text = key ? String(value(key) ?? "") : "";
+    const name = text ? `${type}: ${text.slice(0, 50)}` : type;
+    return value("hidden") ? `${name} (hidden)` : name;
+  };
+
+const sections = fields.blocks(
+  {
+    banner: {
+      label: "Banner",
+      itemLabel: sectionLabel("Banner", "title"),
+      schema: fields.object({
+        title: fields.text({ label: "Title" }),
+        subtitle: fields.text({ label: "Subtitle", multiline: true }),
+        size: fields.select({
+          label: "Size",
+          options: [
+            { label: "Tall", value: "tall" },
+            { label: "Compact (content starts higher)", value: "compact" },
+          ],
+          defaultValue: "tall",
+        }),
+        hidden,
+      }),
+    },
+    heading: {
+      label: "Heading",
+      itemLabel: sectionLabel("Heading", "title"),
+      schema: fields.object({
+        title: fields.text({ label: "Title" }),
+        description: fields.text({ label: "Description", multiline: true }),
+        size: fields.select({
+          label: "Size",
+          options: [
+            { label: "Large", value: "xl" },
+            { label: "Medium", value: "lg" },
+            { label: "Small", value: "md" },
+          ],
+          defaultValue: "xl",
+        }),
+        hidden,
+      }),
+    },
+    text: {
+      label: "Text",
+      itemLabel: sectionLabel("Text", "text"),
+      schema: fields.object({
+        text: fields.text({
+          label: "Text",
+          description: "A blank line starts a new paragraph.",
+          multiline: true,
+        }),
+        style: fields.select({
+          label: "Style",
+          options: [
+            { label: "Plain", value: "plain" },
+            { label: "In a box", value: "panel" },
+          ],
+          defaultValue: "plain",
+        }),
+        width,
+        hidden,
+      }),
+    },
+    media: {
+      label: "Image or video",
+      itemLabel: sectionLabel("Image or video", "src"),
+      schema: fields.object({
+        type: fields.select({
+          label: "Type",
+          options: [
+            { label: "Image", value: "image" },
+            { label: "Video", value: "video" },
+          ],
+          defaultValue: "image",
+        }),
+        src: fields.text({
+          label: "File",
+          description:
+            'A file in public/, e.g. "/about/me.jpg" for public/about/me.jpg. ' +
+            "Videos can also be a YouTube link.",
+          validation: { isRequired: true },
+        }),
+        label: mediaLabel,
+        caption: mediaCaption,
+        width,
+        hidden,
+      }),
+    },
+    buttons: {
+      label: "Buttons",
+      itemLabel: sectionLabel("Buttons"),
+      schema: fields.object({
+        buttons: buttonList("Buttons"),
+        align: fields.select({
+          label: "Alignment",
+          options: [
+            { label: "Left", value: "left" },
+            { label: "Center", value: "center" },
+          ],
+          defaultValue: "left",
+        }),
+        hidden,
+      }),
+    },
+    spacer: {
+      label: "Spacer",
+      itemLabel: sectionLabel("Spacer", "size"),
+      schema: fields.object({
+        size: fields.select({
+          label: "Size",
+          options: [
+            { label: "Small", value: "small" },
+            { label: "Medium", value: "medium" },
+            { label: "Large", value: "large" },
+          ],
+          defaultValue: "medium",
+        }),
+        hidden,
+      }),
+    },
+    about: {
+      label: "About (intro card with photo)",
+      itemLabel: sectionLabel("About", "heading"),
+      schema: fields.object({
+        status: fields.text({ label: "Status tag", description: "Small tag at the top." }),
+        heading: fields.text({ label: "Heading" }),
+        body: fields.text({
+          label: "Intro",
+          description: "A blank line starts a new paragraph.",
+          multiline: true,
+        }),
+        skills: fields.array(fields.text({ label: "Skill" }), {
+          label: "Skills",
+          description: "Tags under the intro.",
+          itemLabel: (props) => props.value,
+        }),
+        showSocials: fields.checkbox({
+          label: "Show GitHub and LinkedIn buttons",
+          defaultValue: true,
+        }),
+        photo: fields.text({
+          label: "Photo",
+          description: 'An image in public/, e.g. "/about/me.jpg" for public/about/me.jpg.',
+        }),
+        photoPosition: fields.select({
+          label: "Photo position",
+          options: [
+            { label: "Right", value: "right" },
+            { label: "Left", value: "left" },
+            { label: "No photo", value: "none" },
+          ],
+          defaultValue: "right",
+        }),
+        buttons: fields.array(
+          fields.object({
+            label: fields.text({ label: "Label" }),
+            href: fields.text({ label: "Link", description: 'e.g. "/projects"' }),
+          }),
+          {
+            label: "Buttons under the photo",
+            itemLabel: (props) => props.fields.label.value,
+            validation: { length: { max: 2 } },
+          },
+        ),
+        hidden,
+      }),
+    },
+    featured: {
+      label: "Featured cards",
+      itemLabel: sectionLabel("Featured", "heading"),
+      schema: fields.object({
+        heading: fields.text({
+          label: "Heading",
+          description:
+            'To choose what\'s featured, set "Featured on homepage" on a project or ' +
+            "experience entry.",
+        }),
+        columns,
+        hidden,
+      }),
+    },
+    projectTabs: {
+      label: "Project tab cards",
+      itemLabel: sectionLabel("Project tab cards"),
+      schema: fields.object({ columns, hidden }),
+    },
+    projectCards: {
+      label: "Project cards",
+      itemLabel: sectionLabel("Project cards", "category"),
+      schema: fields.object({
+        category: fields.select({
+          label: "Which projects",
+          options: [
+            { label: "All projects", value: "all" },
+            ...projectCategories.map((c) => ({ label: c.label, value: c.slug })),
+          ],
+          defaultValue: "all",
+        }),
+        columns,
+        hidden,
+      }),
+    },
+    courses: {
+      label: "Coursework cards",
+      itemLabel: sectionLabel("Coursework cards"),
+      schema: fields.object({ columns, hidden }),
+    },
+    experience: {
+      label: "Experience windows",
+      itemLabel: sectionLabel("Experience windows"),
+      schema: fields.object({
+        clubsHeading: fields.text({ label: "Clubs & Research Labs heading" }),
+        workHeading: fields.text({ label: "Work Experience heading" }),
+        arrangement: fields.select({
+          label: "Arrangement",
+          options: [
+            { label: "Side by side (wide screens)", value: "side" },
+            { label: "Stacked", value: "stacked" },
+          ],
+          defaultValue: "side",
+        }),
+        first: fields.select({
+          label: "Shown first",
+          options: [
+            { label: "Clubs & Research Labs", value: "clubs" },
+            { label: "Work Experience", value: "work" },
+          ],
+          defaultValue: "clubs",
+        }),
+        hidden,
+      }),
+    },
+    resume: {
+      label: "Resume",
+      itemLabel: sectionLabel("Resume", "title"),
+      schema: fields.object({
+        title: fields.text({ label: "Title" }),
+        description: fields.text({ label: "Description", multiline: true }),
+        updated: fields.text({
+          label: "Last updated",
+          description: 'Shown as "Updated <this>". Bump it when you replace the PDF.',
+        }),
+        file: fields.text({
+          label: "Resume PDF",
+          description: 'Path to the PDF in public/, e.g. "/resume.pdf" for public/resume.pdf.',
+        }),
+        downloadName: fields.text({
+          label: "Download file name",
+          description: "Name visitors' browsers save the PDF as.",
+        }),
+        showViewer: fields.checkbox({
+          label: "Show the PDF viewer",
+          description: "Off: just the heading and Download button.",
+          defaultValue: true,
+        }),
+        hidden,
+      }),
+    },
+    contact: {
+      label: "Contact cards",
+      itemLabel: sectionLabel("Contact", "title"),
+      schema: fields.object({
+        title: fields.text({ label: "Title" }),
+        description: fields.text({ label: "Description", multiline: true }),
+        columns,
+        hidden,
+      }),
+    },
+  },
+  {
+    label: "Sections",
+    description: "The page, top to bottom. Drag to reorder; Add to insert a new section.",
+  },
+);
 
 export default config({
   storage: { kind: "local" },
@@ -91,44 +421,7 @@ export default config({
       label: "Homepage",
       path: "content/pages/home",
       format: { data: "yaml" },
-      schema: {
-        status: fields.text({
-          label: "Status tag",
-          description: "Small tag at the top of the About card.",
-        }),
-        heading: fields.text({ label: "Heading" }),
-        body: fields.text({
-          label: "Intro",
-          description: "A blank line starts a new paragraph.",
-          multiline: true,
-        }),
-        skills: fields.array(fields.text({ label: "Skill" }), {
-          label: "Skills",
-          description: "Tags under the intro.",
-          itemLabel: (props) => props.value,
-        }),
-        photo: fields.text({
-          label: "Photo",
-          description: 'An image in public/, e.g. "/about/me.jpg" for public/about/me.jpg.',
-        }),
-        buttons: fields.array(
-          fields.object({
-            label: fields.text({ label: "Label" }),
-            href: fields.text({ label: "Link", description: 'e.g. "/projects"' }),
-          }),
-          {
-            label: "Buttons under the photo",
-            itemLabel: (props) => props.fields.label.value,
-            validation: { length: { max: 2 } },
-          },
-        ),
-        featuredHeading: fields.text({
-          label: "Featured heading",
-          description:
-            "To choose what's featured, set \"Featured on homepage\" on a project or " +
-            "experience entry.",
-        }),
-      },
+      schema: { sections },
     }),
 
     projectsPage: singleton({
@@ -136,13 +429,16 @@ export default config({
       path: "content/pages/projects",
       format: { data: "yaml" },
       schema: {
-        title: pageTitle,
-        subtitle: pageSubtitle,
+        title: tabTitle,
         // One entry per tab in src/lib/project-categories.ts.
         categories: fields.object(
           { personal: categoryText("Personal Projects"), class: categoryText("Class Projects") },
-          { label: "Project tabs" },
+          {
+            label: "Project tabs",
+            description: "Each tab's card on this page and the banner on the tab's own page.",
+          },
         ),
+        sections,
       },
     }),
 
@@ -150,51 +446,28 @@ export default config({
       label: "Experience page",
       path: "content/pages/experience",
       format: { data: "yaml" },
-      schema: {
-        title: pageTitle,
-        subtitle: pageSubtitle,
-        clubsHeading: fields.text({ label: "Left window heading (Clubs & Research Labs)" }),
-        workHeading: fields.text({ label: "Right window heading (Work Experience)" }),
-      },
+      schema: { title: tabTitle, sections },
     }),
 
     courseworkPage: singleton({
       label: "Coursework page",
       path: "content/pages/coursework",
       format: { data: "yaml" },
-      schema: { title: pageTitle, subtitle: pageSubtitle },
+      schema: { title: tabTitle, sections },
     }),
 
     resumePage: singleton({
       label: "Resume page",
       path: "content/pages/resume",
       format: { data: "yaml" },
-      schema: {
-        title: pageTitle,
-        description: pageSubtitle,
-        updated: fields.text({
-          label: "Last updated",
-          description: 'Shown as "Updated <this>". Bump it when you replace the PDF.',
-        }),
-        file: fields.text({
-          label: "Resume PDF",
-          description: 'Path to the PDF in public/, e.g. "/resume.pdf" for public/resume.pdf.',
-        }),
-        downloadName: fields.text({
-          label: "Download file name",
-          description: "Name visitors' browsers save the PDF as.",
-        }),
-      },
+      schema: { title: tabTitle, sections },
     }),
 
     contactPage: singleton({
       label: "Contact page",
       path: "content/pages/contact",
       format: { data: "yaml" },
-      schema: {
-        title: pageTitle,
-        description: pageSubtitle,
-      },
+      schema: { title: tabTitle, sections },
     }),
   },
   collections: {

@@ -19,7 +19,7 @@ const column = "mx-auto w-full max-w-6xl";
 // - local videos keep their real shape and are as wide as possible while staying
 //   within 80% of the screen height (portrait phone clips stay portrait).
 // The label and caption share the figure's width, so they line up with the media.
-function Media({ item }: { item: MediaItem }) {
+export function Media({ item }: { item: MediaItem }) {
   const embed = item.type === "video" ? youtubeEmbed(item.src) : undefined;
   const size = embed ? undefined : mediaSize(item.src);
   const w = size?.width ?? (item.type === "video" ? 9 : 16);

@@ -15,3 +15,12 @@ export const getExperiencePage = cache(() => reader.singletons.experiencePage.re
 export const getCourseworkPage = cache(() => reader.singletons.courseworkPage.readOrThrow());
 export const getResumePage = cache(() => reader.singletons.resumePage.readOrThrow());
 export const getContactPage = cache(() => reader.singletons.contactPage.readOrThrow());
+
+// One section of a page (every page uses the same section types).
+export type Section = Awaited<ReturnType<typeof getHome>>["sections"][number];
+
+// The fields of one kind of section, e.g. SectionOf<"banner">.
+export type SectionOf<K extends Section["discriminant"]> = Extract<
+  Section,
+  { discriminant: K }
+>["value"];
