@@ -12,4 +12,6 @@ tags:
 year: '2026'
 finalProject: false
 featured: 1
-details: []
+details:
+  - discriminant: heading
+    value: Overview
