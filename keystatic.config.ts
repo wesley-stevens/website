@@ -22,8 +22,10 @@ const featured = fields.integer({
 const mediaSrc = fields.text({
   label: "File",
   description:
-    'Put files in public/project-media/<slug>/ and enter "/project-media/<slug>/<file>". ' +
-    "Videos can also be a YouTube link. Use .mp4 (H.264) for videos.",
+    'Put files in the project\'s folder, public/project-media/<slug>/, and enter ' +
+    '"/project-media/<slug>/<file>". The folder doesn\'t rename itself if you change the ' +
+    "slug, so enter the folder's actual name. Videos can also be a YouTube link. " +
+    "Use .mp4 (H.264) for videos.",
   validation: { isRequired: true },
 });
 const mediaLabel = fields.text({
