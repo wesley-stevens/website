@@ -16,3 +16,37 @@ featured: 1
 details:
   - discriminant: heading
     value: Overview
+  - discriminant: text
+    value: >-
+      It wasn’t my preferred option to host this website through a publishing
+      service like Squarespace (due to some personal financial constraints), and
+      I was eager to find a way to create my website through an “easier on the
+      wallet” platform. After meeting with a friend who also built a website in
+      a similar fashion, he told me about Vercel, a free website-hosting
+      platform which I happily jumped on the opportunity to use. The only
+      condition was that you had to build the website yourself. My personal
+      programming language knowledge was absolutely not advanced enough to do it
+      myself, so with the help of Claude Code (and vibecoding), I was able to
+      make my dream become a reality. This website is entirely vibecoded. 
+
+
+      But why did I want a website? Well, first and foremost, as an Electrical &
+      Computer Engineering Major aspiring to successfully make it into industry,
+      I wanted to have a place to showcase all my relevant projects, coursework,
+      and experience for both my own personal merit and for recruiters.
+      Additionally, I wanted something that was interactive (like a real
+      website), rather than just a Canva slideshow that you scroll through. I
+      felt that having something more “hands-on” would definitely resonate more
+      with someone trying to get a glimpse into who I am and what I do. 
+
+
+      The process of building this website has been very technically-valuable
+      for me. Firstly, this website is full-stack, and I was able to learn a lot
+      about a website’s structure through the creation of this website.
+      Secondly, this project has taught me how to be clear and concise with AI,
+      and how to effectively and efficiently guide it to design my visions.
+      However, even though this website was vibecoded, everything you will read
+      on this website has been written by me. It’s ethically important to me
+      that I use AI as a learning tool to help me learn about the engineering
+      problems that interest me and to help with redundant tasks, rather than
+      over-relying on AI or using it as a crutch.
