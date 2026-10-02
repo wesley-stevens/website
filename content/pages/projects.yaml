@@ -1,5 +1,4 @@
 title: Projects
-subtitle: Things I've designed, built, and refined.
 categories:
   personal:
     title: Personal Projects
@@ -11,3 +10,14 @@ categories:
     description: >-
       Final projects and labs from my ECE coursework that demonstrate profound
       knowledge of concepts.
+sections:
+  - discriminant: banner
+    value:
+      title: Projects
+      subtitle: Things I've designed, built, and refined.
+      size: tall
+      hidden: false
+  - discriminant: projectTabs
+    value:
+      columns: '3'
+      hidden: false

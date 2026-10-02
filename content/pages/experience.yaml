@@ -1,4 +1,15 @@
 title: Experience
-subtitle: Research, engineering, and work experience.
-clubsHeading: Clubs & Research Labs
-workHeading: Work Experience
+sections:
+  - discriminant: banner
+    value:
+      title: Experience
+      subtitle: Research, engineering, and work experience.
+      size: compact
+      hidden: false
+  - discriminant: experience
+    value:
+      clubsHeading: Clubs & Research Labs
+      workHeading: Work Experience
+      arrangement: side
+      first: clubs
+      hidden: false

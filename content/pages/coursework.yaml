@@ -1,2 +1,12 @@
 title: Coursework
-subtitle: Explore all relevant coursework I've accomplished to complete my degree.
+sections:
+  - discriminant: banner
+    value:
+      title: Coursework
+      subtitle: Explore all relevant coursework I've accomplished to complete my degree.
+      size: tall
+      hidden: false
+  - discriminant: courses
+    value:
+      columns: '3'
+      hidden: false
