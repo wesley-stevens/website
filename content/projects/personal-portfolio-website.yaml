@@ -2,8 +2,9 @@ title: Personal Portfolio Website
 order: 1
 category: personal
 summary: >-
-  A short description of the project, what problem it solves, and the approach
-  you took.
+  This website! A Full-Stack Engineering Portfolio built using Next.js, React,
+  Claude Code, and deployed through GitHub and Vercel. Improved upon using
+  Keystatic CMS.
 tags:
   - Next.js
   - React
