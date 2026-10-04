@@ -50,3 +50,21 @@ details:
       that I use AI as a learning tool to help me learn about the engineering
       problems that interest me and to help with redundant tasks, rather than
       over-relying on AI or using it as a crutch.
+  - discriminant: image
+    value:
+      src: /project-media/personal-portfolio-website/github-photo
+      label: GitHub Repo
+  - discriminant: image
+    value:
+      src: /project-media/personal-portfolio-website/keystatic-photo
+      label: Keystatic UI
+  - discriminant: image
+    value:
+      src: /project-media/personal-portfolio-website/vercel-photo
+      label: Vercel Deployment Dashboard
+  - discriminant: image
+    value:
+      src: /project-media/personal-portfolio-website/vs-code-photo
+      label: VS Code
+  - discriminant: heading
+    value: How It Works
