@@ -68,3 +68,32 @@ details:
       label: VS Code
   - discriminant: heading
     value: How It Works
+  - discriminant: text
+    value: >-
+      This site was built in TypeScript with React and Next.js, deployed through
+      Vercel, and then added Keystatic on top as a CMS so I can edit content
+      without touching code.
+
+
+      React is a JavaScript library for building interactive user interfaces. It
+      gives you a set of functions for building a UI, but it doesn't tell you
+      how to organize an app. React's job is defining those individual
+      components and keeping what's on screen in sync with your data.
+
+
+      Next.js is a framework built on top of React, and it's the thing that
+      turns those components into an actual website. It handles routing — a file
+      at app/about/page.tsx automatically becomes the /about page, with no extra
+      setup required. It decides rendering — whether a page gets built ahead of
+      time, rendered on the server per request, or rendered in the browser. It
+      also handles data fetching, loading data on the server before the page
+      even reaches you; it handles bundling and optimization, things like code
+      splitting and image optimization, and it covers backend pieces too, like
+      API routes, so one project can handle both frontend and some backend work
+      without needing a separate server.
+
+
+      Keystatic is basically what you'd get from Squarespace's editing
+      experience, minus the subscription, since the whole thing lives in my own
+      codebase. Every change I make in Keystatic commits straight to GitHub,
+      which triggers Vercel to rebuild and redeploy automatically.
