@@ -71,14 +71,16 @@ details:
       at app/about/page.tsx automatically becomes the /about page, with no extra
       setup required. It decides rendering — whether a page gets built ahead of
       time, rendered on the server per request, or rendered in the browser. It
-      also handles data fetching, loading data on the server before the page
-      even reaches you; it handles bundling and optimization, things like code
-      splitting and image optimization, and it covers backend pieces too, like
+      handles data fetching, loading data on the server before the page even
+      reaches you. It handles bundling and optimization, things like code
+      splitting and image optimization. And it covers backend pieces too, like
       API routes, so one project can handle both frontend and some backend work
       without needing a separate server.
 
 
       Keystatic is basically what you'd get from Squarespace's editing
       experience, minus the subscription, since the whole thing lives in my own
-      codebase. Every change I make in Keystatic commits straight to GitHub,
-      which triggers Vercel to rebuild and redeploy automatically.
+      codebase. I installed Keystatic as a CMS so I’d be able to easily edit the
+      contents of my website without having to even touch the code. Every change
+      I make in Keystatic commits straight to GitHub, which triggers Vercel to
+      rebuild and redeploy automatically.
