@@ -5,8 +5,12 @@
 // change, commits just those two folders and pushes them to GitHub, which redeploys the
 // live site. Nothing else is ever committed, so code changes you're in the middle of are
 // never pushed. Use `npm run dev:local` to edit without publishing.
+//
+// It also gives every project a media folder: when a project is created in Keystatic
+// (content/projects/<slug>.yaml), it makes public/project-media/<slug>/ to put its
+// photos and videos in.
 import { spawn, execFile } from "node:child_process";
-import { watch } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, watch, writeFileSync } from "node:fs";
 import { promisify } from "node:util";
 import path from "node:path";
 
@@ -32,6 +36,27 @@ function describe(nameStatus) {
   return `Update content: ${shown}${names.length > 4 ? ` and ${names.length - 4} more` : ""}`;
 }
 
+// Creates public/project-media/<slug>/ for any project that doesn't have one yet. A
+// .gitkeep file inside lets git store the empty folder. Skips a project whose media
+// already points at another existing folder (e.g. after renaming its slug), so a rename
+// doesn't leave an extra empty folder behind.
+function ensureMediaFolders() {
+  const projects = path.join(root, "content", "projects");
+  const media = path.join(root, "public", "project-media");
+  for (const file of readdirSync(projects).filter((f) => f.endsWith(".yaml"))) {
+    const slug = file.replace(/\.yaml$/, "");
+    const folder = path.join(media, slug);
+    if (existsSync(folder)) continue;
+    const usedFolders = [...readFileSync(path.join(projects, file), "utf8").matchAll(
+      /\/project-media\/([^/\s]+)\//g,
+    )].map((m) => m[1]);
+    if (usedFolders.some((f) => existsSync(path.join(media, f)))) continue;
+    mkdirSync(folder, { recursive: true });
+    writeFileSync(path.join(folder, ".gitkeep"), "");
+    log(`created public/project-media/${slug}/ for the new project "${slug}"`);
+  }
+}
+
 let busy = false;
 let again = false;
 
@@ -42,6 +67,7 @@ async function publish() {
   }
   busy = true;
   try {
+    ensureMediaFolders();
     await git("add", "-A", "--", ...FOLDERS);
     const changed = await git("diff", "--cached", "--name-status", "--", ...FOLDERS);
     if (changed) {
