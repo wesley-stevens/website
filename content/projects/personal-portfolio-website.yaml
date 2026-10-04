@@ -15,6 +15,20 @@ year: '2026'
 finalProject: false
 featured: 1
 details:
+  - discriminant: row
+    value:
+      - src: /project-media/personal-portfolio-website/vs-code-photo.png
+        label: ''
+        caption: ''
+      - src: /project-media/personal-portfolio-website/github-photo.png
+        label: ''
+        caption: ''
+      - src: /project-media/personal-portfolio-website/vercel-photo.png
+        label: ''
+        caption: ''
+      - src: /project-media/personal-portfolio-website/keystatic-photo.png
+        label: ''
+        caption: ''
   - discriminant: heading
     value: Overview
   - discriminant: text
