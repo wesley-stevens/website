@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import AlignRows from "./AlignRows";
 import Container from "./Container";
 import Tag from "./Tag";
 
@@ -22,11 +23,11 @@ export function TileGrid({
 }) {
   return (
     <Container className="pb-16 pt-6">
-      <div
+      <AlignRows
         className={`flex flex-wrap justify-center gap-8 [&>*]:w-full ${columnClasses[columns]}`}
       >
         {children}
-      </div>
+      </AlignRows>
     </Container>
   );
 }
