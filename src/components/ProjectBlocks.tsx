@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { mediaSize } from "@/lib/media";
+import ImageLightbox from "./ImageLightbox";
 import type { MediaItem, ProjectBlock } from "@/lib/projects";
 
 // Turns a YouTube watch/share link into an embeddable URL, or returns undefined.
@@ -49,13 +50,8 @@ export function Media({
       {item.label && <h3 className="mb-4 text-lg tracking-tight">{item.label}</h3>}
 
       {item.type === "image" ? (
-        // Click to open the full-size image (handy for screenshots).
-        <a
-          href={item.src}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="brutal-panel press block overflow-hidden"
-        >
+        // Click to view it larger in a popup (handy for screenshots).
+        <ImageLightbox src={item.src} alt={item.caption ?? item.label ?? ""} width={w} height={h}>
           <Image
             src={item.src}
             alt={item.caption ?? item.label ?? ""}
@@ -65,7 +61,7 @@ export function Media({
             quality={90}
             className="block h-auto w-full"
           />
-        </a>
+        </ImageLightbox>
       ) : embed ? (
         <div className="brutal-panel aspect-video overflow-hidden">
           <iframe
