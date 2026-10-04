@@ -7,6 +7,9 @@ import { useRef, type ReactNode } from "react";
 // dimmed and blurred). Close it with the round X, by clicking outside the image, or
 // with Esc. Uses <dialog>, so keyboard focus stays in the popup while it's open and
 // returns to the image afterwards.
+// Total space left around the popup photo (both sides together).
+const margins = "clamp(2.5rem, 6vw, 4rem)";
+
 export default function ImageLightbox({
   src,
   alt,
@@ -48,14 +51,20 @@ export default function ImageLightbox({
           backdrop:bg-black/50 backdrop:backdrop-blur-sm`}
       >
         <div className="relative">
+          {/* As large as fits, keeping the photo's shape (wide photos are limited by the
+              screen's width, tall ones by its height). The margin around it grows from
+              1.25rem on phones to 2rem on big screens, leaving room for the X. */}
           <Image
             src={src}
             alt={alt}
             width={width}
             height={height}
-            sizes="90vw"
+            sizes="100vw"
             quality={90}
-            className="brutal-panel block h-auto max-h-[85vh] w-auto max-w-[90vw]"
+            className="brutal-panel block h-auto"
+            style={{
+              width: `min(calc(100vw - ${margins}), calc((100dvh - ${margins}) * ${width} / ${height}))`,
+            }}
           />
           <button
             type="button"
