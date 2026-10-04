@@ -14,4 +14,8 @@ summary: >-
 tags: []
 year: '2026'
 finalProject: false
-details: []
+details:
+  - discriminant: image
+    value:
+      src: /project-media/curtain-call/construction.jpg
+      caption: This page is currently under construction.
