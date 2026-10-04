@@ -1,0 +1,17 @@
+title: 'Curtain Call: An Adaptive Sunrise Curtain System'
+order: 2
+category: personal
+summary: >-
+  "Curtain Call" is an adaptive sunrise curtain system built around a custom PCB
+  with a photodiode light sensor and microcontroller, which drives a stepper
+  motor on a belt-and-pulley track to gradually part the curtains to both sides
+  of the window at dawn. It calculates sunrise from my location and learns how
+  long I take to wake up, so I get natural light at my target wake time all
+  year, and the curtains can still be operated by hand at any time.
+
+
+  Check back in regularly to see my progress with this project. 
+tags: []
+year: '2026'
+finalProject: false
+details: []
