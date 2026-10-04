@@ -566,6 +566,21 @@ export default config({
                 },
               ),
             },
+            row: {
+              label: "Image row (small, side by side)",
+              itemLabel: (props) => `Image row: ${props.elements.length} images`,
+              schema: fields.array(
+                fields.object({ src: mediaSrc, label: mediaLabel, caption: mediaCaption }),
+                {
+                  label: "Images",
+                  description:
+                    "All images sit in one row across the page (2 per row on phones). " +
+                    "Click one to open it full size.",
+                  itemLabel: (props) => props.fields.label.value || props.fields.src.value,
+                  validation: { length: { min: 1, max: 6 } },
+                },
+              ),
+            },
           },
           { label: "Details" },
         ),

@@ -27,12 +27,14 @@ export type MediaItem = {
 // - list: bullet points.
 // - image / video: one item at text width.
 // - gallery: items side by side (stacked on phones).
+// - row: small images, all in one row (2 per row on phones).
 export type ProjectBlock =
   | { type: "heading"; text: string }
   | { type: "text"; text: string }
   | { type: "list"; items: string[] }
   | (MediaItem & { type: "image" | "video" })
-  | { type: "gallery"; items: MediaItem[] };
+  | { type: "gallery"; items: MediaItem[] }
+  | { type: "row"; items: MediaItem[] };
 
 export type Project = {
   slug: string;
@@ -83,6 +85,8 @@ export const getProjects = cache(async (): Promise<Project[]> => {
             return media(block.discriminant, block.value) as ProjectBlock;
           case "gallery":
             return { type: "gallery", items: block.value.map((m) => media(m.type, m)) };
+          case "row":
+            return { type: "row", items: block.value.map((m) => media("image", m)) };
         }
       }),
     }));

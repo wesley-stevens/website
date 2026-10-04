@@ -12,6 +12,17 @@ function youtubeEmbed(src: string) {
 // One shared column width for every block, so headings, text, and media all line up.
 const column = "mx-auto w-full max-w-6xl";
 
+// Image row: every image in one row from 768px up (2 per row on phones), centered
+// vertically so screenshots of different shapes line up through the middle.
+const rowColumns: Record<number, string> = {
+  1: "md:grid-cols-1",
+  2: "md:grid-cols-2",
+  3: "md:grid-cols-3",
+  4: "md:grid-cols-4",
+  5: "md:grid-cols-5",
+  6: "md:grid-cols-6",
+};
+
 // One photo or video, with an optional label above and caption below.
 // Sizes come from the actual files (read at build time), so every browser lays the
 // media out the same way without having to measure it first:
@@ -19,7 +30,13 @@ const column = "mx-auto w-full max-w-6xl";
 // - local videos keep their real shape and are as wide as possible while staying
 //   within 80% of the screen height (portrait phone clips stay portrait).
 // The label and caption share the figure's width, so they line up with the media.
-export function Media({ item }: { item: MediaItem }) {
+export function Media({
+  item,
+  sizes = "(min-width: 1280px) 1152px, 100vw",
+}: {
+  item: MediaItem;
+  sizes?: string; // how wide the image displays, so browsers download a fitting size
+}) {
   const embed = item.type === "video" ? youtubeEmbed(item.src) : undefined;
   const size = embed ? undefined : mediaSize(item.src);
   const w = size?.width ?? (item.type === "video" ? 9 : 16);
@@ -44,7 +61,7 @@ export function Media({ item }: { item: MediaItem }) {
             alt={item.caption ?? item.label ?? ""}
             width={w}
             height={h}
-            sizes="(min-width: 1280px) 1152px, 100vw"
+            sizes={sizes}
             quality={90}
             className="block h-auto w-full"
           />
@@ -128,6 +145,22 @@ export default function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
               >
                 {block.items.map((item) => (
                   <Media key={item.src} item={item} />
+                ))}
+              </div>
+            );
+          case "row":
+            return (
+              <div
+                key={i}
+                className={`${column} grid grid-cols-2 items-center gap-4
+                  ${rowColumns[block.items.length]}`}
+              >
+                {block.items.map((item) => (
+                  <Media
+                    key={item.src}
+                    item={item}
+                    sizes={`(min-width: 768px) ${Math.ceil(100 / block.items.length)}vw, 50vw`}
+                  />
                 ))}
               </div>
             );
