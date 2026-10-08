@@ -8,7 +8,7 @@ logo: ipl-logo
 logoOnWhite: true
 bullets:
   - >-
-    Primarily assisting in the AI and Machine Learning-based Multi Object
+    Primarily assisting NOAA in the AI and Machine Learning-based Multi Object
     Tracking for Underwater Vision Project, using GitHub repos Grounding DINO
     and SAM2 to track marine animals across a collection of videos.
   - >-
