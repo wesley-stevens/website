@@ -1,0 +1,18 @@
+title: 'Pocket Park: A Wall-Mounted Dual-Sport Live Scoreboard & Display'
+order: 2
+category: personal
+summary: >-
+  “Pocket Park” is a wall-mounted live scoreboard for baseball and football. It
+  follows the MLB, NFL, and NCAA football games I pick, and when more than one
+  is on, it shows them in a priority order I set. A drive tracker down the
+  middle of the football field shows where the ball is in real time, and LED
+  strips built into the board light up in different patterns for big moments in
+  the game it’s following, like home runs and touchdowns.
+tags: []
+year: '2026'
+finalProject: false
+details:
+  - discriminant: image
+    value:
+      src: /project-media/curtain-call/construction.jpg
+      caption: This page is currently under construction.
